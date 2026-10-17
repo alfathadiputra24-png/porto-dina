@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dina Pujilestari | Barbie Dream Portfolio 🌸</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins, Dancing Script & Fredoka -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        barbie: {
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            hot: '#ff1493',
+                            deep: '#c2185b',
+                            gold: '#ffd700',
+                            light: '#fff0f5'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        barbie: ['"Dancing Script"', 'cursive'],
+                        fun: ['Fredoka', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'sparkle': 'sparkle 2s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'spin-slow': 'spin 12s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        sparkle: {
+                            '0%, 100%': { opacity: 0.3, transform: 'scale(0.8)' },
+                            '50%': { opacity: 1, transform: 'scale(1.2)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(255, 20, 147, 0.4)' },
+                            '50%': { boxShadow: '0 0 30px rgba(255, 20, 147, 0.8)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Barbie Aesthetics */
+        body {
+            background-color: #fff0f5;
+            background-image: 
+                radial-gradient(#ffb6c1 0.75px, transparent 0.75px), 
+                radial-gradient(#ff1493 0.75px, #fff0f5 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            color: #4a0e17;
+            overflow-x: hidden;
+        }
+
+        .barbie-glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 182, 193, 0.6);
+        }
+
+        .barbie-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 228, 230, 0.85) 100%);
+            border: 2px solid #fda4af;
+            box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .barbie-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 35px -5px rgba(255, 20, 147, 0.3);
+            border-color: #ff1493;
+        }
+
+        .barbie-btn {
+            background: linear-gradient(45deg, #ff1493, #f43f5e, #ff69b4);
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .barbie-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Canvas Particle Effects */
+        #sparkleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe4e6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff1493;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e11d48;
+        }
+
+        .heart-bullet::before {
+            content: "💖";
+            margin-right: 8px;
+        }
+
+        .photo-frame-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .photo-frame-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.5) 50%,
+                transparent 70%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translate(-100%, -100%) rotate(30deg); }
+            20% { transform: translate(100%, 100%) rotate(30deg); }
+            100% { transform: translate(100%, 100%) rotate(30deg); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-pink-950 min-h-screen flex flex-col justify-between">
+
+    <!-- Sparkle Canvas Overlay -->
+    <canvas id="sparkleCanvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 barbie-glass border-b border-pink-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-barbie-hot to-pink-400 flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition">
+                    <span class="text-2xl">👑</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-barbie text-3xl font-bold text-barbie-hot tracking-wide drop-shadow-sm">Dina Pujilestari</span>
+                    <span class="text-xs font-semibold text-pink-600 tracking-wider uppercase">Barbie World • Akuntansi</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <a href="#about" class="px-4 py-2 rounded-full font-fun text-pink-800 hover:text-barbie-hot hover:bg-pink-100 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-heart text-barbie-hot"></i> Tentangan Saya
+                </a>
+                <a href="#hobi" class="px-4 py-2 rounded-full font-fun text-pink-800 hover:text-barbie-hot hover:bg-pink-100 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-sparkles text-barbie-hot"></i> Hobi
+                </a>
+                <a href="#keseharian" class="px-4 py-2 rounded-full font-fun text-pink-800 hover:text-barbie-hot hover:bg-pink-100 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-calendar-heart text-barbie-hot"></i> Keseharian
+                </a>
+                <a href="#akuntansi" class="px-4 py-2 rounded-full font-fun text-pink-800 hover:text-barbie-hot hover:bg-pink-100 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-calculator text-barbie-hot"></i> Kalkulator Pink
+                </a>
+                <a href="#contact" class="px-4 py-2 rounded-full font-fun text-pink-800 hover:text-barbie-hot hover:bg-pink-100 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-envelope-open-text text-barbie-hot"></i> Kontak
+                </a>
+            </nav>
+
+            <!-- Quick Action & Toggle Buttons -->
+            <div class="flex items-center space-x-2">
+                <button id="sparkleToggleBtn" onclick="toggleSparkles()" title="Toggle Efek Kilau" class="p-2.5 rounded-full bg-pink-100 hover:bg-pink-200 text-barbie-hot transition border border-pink-300">
+                    <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                </button>
+                <a href="https://wa.me/6285368543428" target="_blank" class="hidden sm:inline-flex barbie-btn text-white px-5 py-2.5 rounded-full font-semibold text-sm items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Chat WA
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl text-barbie-hot hover:bg-pink-100 focus:outline-none">
+                    <i class="fa-solid fa-bars-staggered text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden barbie-glass border-b border-pink-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#about" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-pink-900 font-medium hover:bg-pink-200/50">💖 Perkenalan Diri</a>
+            <a href="#hobi" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-pink-900 font-medium hover:bg-pink-200/50">✨ Hobi Saya</a>
+            <a href="#keseharian" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-pink-900 font-medium hover:bg-pink-200/50">🎀 Keseharian</a>
+            <a href="#akuntansi" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-pink-900 font-medium hover:bg-pink-200/50">🧮 Kalkulator Akuntansi</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-pink-900 font-medium hover:bg-pink-200/50">📞 Kontak Saya</a>
+            <a href="https://wa.me/6285368543428" target="_blank" class="block text-center barbie-btn text-white py-2.5 rounded-xl font-bold mt-2">
+                <i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp Direct
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- Hero Section -->
+        <section id="home" class="relative pt-6 pb-12 overflow-hidden">
+            <!-- Background Decorative Blobs -->
+            <div class="absolute top-10 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-80 h-80 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse" style="animation-delay: 1s;"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Text Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-200/80 border border-pink-400 text-barbie-deep text-xs sm:text-sm font-bold tracking-wide shadow-sm animate-bounce">
+                        <span>💖 Welcome to My Glamorous World!</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-pink-950 leading-tight">
+                        Hi, I'm <span class="font-barbie text-5xl sm:text-6xl lg:text-7xl text-barbie-hot block sm:inline drop-shadow-md">Dina Pujilestari</span> ✨
+                    </h1>
+
+                    <p class="text-lg sm:text-xl font-semibold text-pink-800 flex items-center justify-center lg:justify-start gap-2">
+                        <i class="fa-solid fa-graduation-cap text-barbie-hot"></i> STIE Kasih Bangsa • Prodi Akuntansi 📊
+                    </p>
+
+                    <!-- User Text Exact Box -->
+                    <div class="barbie-glass rounded-2xl p-6 border-2 border-pink-300 shadow-lg relative overflow-hidden text-left">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-pink-200/50 rounded-bl-full pointer-events-none"></div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-3xl text-barbie-hot mt-1">🎀</span>
+                            <div>
+                                <h3 class="font-fun text-barbie-deep text-lg font-bold mb-1">Perkenalan Singkat:</h3>
+                                <p class="text-pink-950 text-base sm:text-lg leading-relaxed font-medium italic bg-pink-50/70 p-3 rounded-xl border border-pink-200">
+                                    "Halo perkenalkan nama saya Dina Pujilestari saya berasal dari STIE Kasih Bangsa dengan Prodi Akuntansi"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="https://wa.me/6285368543428" target="_blank" class="barbie-btn text-white px-7 py-3.5 rounded-full font-bold text-base flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp (085368543428)
+                        </a>
+                        <a href="mailto:dinapujilestari16@gmail.com" class="bg-white hover:bg-pink-100 text-barbie-hot border-2 border-barbie-hot px-7 py-3.5 rounded-full font-bold text-base transition shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-xl"></i> Email Me
+                        </a>
+                    </div>
+
+                    <!-- Quick Badges -->
+                    <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-3 text-xs sm:text-sm font-semibold text-pink-800">
+                        <span class="bg-pink-100 px-3 py-1.5 rounded-full border border-pink-300 shadow-sm">✈️ Traveling Lover</span>
+                        <span class="bg-pink-100 px-3 py-1.5 rounded-full border border-pink-300 shadow-sm">🛌 Sleep Enthusiast</span>
+                        <span class="bg-pink-100 px-3 py-1.5 rounded-full border border-pink-300 shadow-sm">🍕 Foodie</span>
+                        <span class="bg-pink-100 px-3 py-1.5 rounded-full border border-pink-300 shadow-sm">🏃‍♀️ Sporty Girl</span>
+                    </div>
+                </div>
+
+                <!-- Right Photo Profile Frame Column -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                    <div class="relative group">
+                        <!-- Outer Rotating Decorative Pink Ring -->
+                        <div class="absolute -inset-4 rounded-full bg-gradient-to-r from-barbie-hot via-pink-400 to-rose-400 opacity-80 blur-md group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-spin-slow"></div>
+
+                        <!-- Main Photo Box -->
+                        <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full border-8 border-white shadow-2xl overflow-hidden photo-frame-shine bg-pink-100 flex items-center justify-center">
+                            <img id="profileImageDisplay" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Dina Pujilestari Profile" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        </div>
+
+                        <!-- Floating Barbie Badge -->
+                        <div class="absolute -bottom-2 -right-2 bg-gradient-to-r from-barbie-hot to-rose-500 text-white p-4 rounded-2xl shadow-xl border-4 border-white flex items-center gap-3 animate-float">
+                            <span class="text-3xl">🎀</span>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider text-pink-200">Barbie Girl</p>
+                                <p class="font-fun font-bold text-sm">Akuntansi Enthusiast 📈</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Sparkle Sticker -->
+                        <div class="absolute top-2 left-0 bg-white/90 backdrop-blur-md text-barbie-hot px-3 py-1.5 rounded-full shadow-md text-xs font-bold border border-pink-300 flex items-center gap-1">
+                            <span>✨</span> Pretty & Smart
+                        </div>
+                    </div>
+
+                    <!-- Change Photo Action Button -->
+                    <div class="mt-6 flex flex-col items-center gap-2">
+                        <label for="photoUploadInput" class="cursor-pointer bg-white hover:bg-pink-100 text-barbie-deep font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full border-2 border-pink-300 shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-barbie-hot"></i> Ganti Foto Profil (Upload / Pilih Foto)
+                        </label>
+                        <input type="file" id="photoUploadInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                        <span class="text-xs text-pink-600 font-medium">Klik tombol di atas untuk mengubah foto kapan saja! 📸</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hobi Saya Section -->
+        <section id="hobi" class="py-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-pink-200 text-barbie-hot font-bold text-xs uppercase tracking-widest mb-3">
+                    ✨ My Favorite Activities ✨
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-pink-950 font-fun">Hobi Saya 💖</h2>
+                <p class="text-pink-700 mt-2 text-base sm:text-lg">Hal-hal yang membuat hari-hari saya lebih berwarna dan penuh kebahagiaan!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Hobi 1: Traveling -->
+                <div class="barbie-card rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-pink-200 text-barbie-hot flex items-center justify-center text-3xl shadow-md mb-4">
+                        ✈️
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-fun text-pink-950 mb-2">Traveling</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Jalan-jalan, jalan-jalan ke tempat indah, mengeksplor destinasi baru, melihat pemandangan asri, dan menciptakan kenangan berharga bersama kawan & keluarga.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-pink-200 flex items-center justify-between text-xs text-barbie-deep font-bold">
+                        <span>#Wanderlust</span>
+                        <span>🧳 Exploring</span>
+                    </div>
+                </div>
+
+                <!-- Hobi 2: Tidur -->
+                <div class="barbie-card rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-pink-200 text-barbie-hot flex items-center justify-center text-3xl shadow-md mb-4">
+                        🛌
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-fun text-pink-950 mb-2">Tidur</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Istirahat yang nyaman & berkualitas untuk mereset pikiran, memulihkan stamina, dan recharge energi agar selalu fit menghadapi hari esok!
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-pink-200 flex items-center justify-between text-xs text-barbie-deep font-bold">
+                        <span>#BeautySleep</span>
+                        <span>💤 Recharge</span>
+                    </div>
+                </div>
+
+                <!-- Hobi 3: Makan -->
+                <div class="barbie-card rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-pink-200 text-barbie-hot flex items-center justify-center text-3xl shadow-md mb-4">
+                        🍕
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-fun text-pink-950 mb-2">Makan</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Wisata kuliner, mencoba berbagai makanan lezat, camilan manis impian, serta menikmati sajian menggugah selera kapan pun!
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-pink-200 flex items-center justify-between text-xs text-barbie-deep font-bold">
+                        <span>#FoodieBarbie</span>
+                        <span>🍰 Delicious</span>
+                    </div>
+                </div>
+
+                <!-- Hobi 4: Olahraga -->
+                <div class="barbie-card rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-pink-200 text-barbie-hot flex items-center justify-center text-3xl shadow-md mb-4">
+                        🏃‍♀️
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-fun text-pink-950 mb-2">Olahraga</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Menjaga kesehatan tubuh, tetap fit, bugar, serta aktif bergerak untuk membakar kalori dan menjaga pola hidup seimbang.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-pink-200 flex items-center justify-between text-xs text-barbie-deep font-bold">
+                        <span>#StayFit</span>
+                        <span>💪 HealthyLife</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keseharian Saya Section -->
+        <section id="keseharian" class="py-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-pink-200 text-barbie-hot font-bold text-xs uppercase tracking-widest mb-3">
+                    🌸 Daily Routine & Activities 🌸
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-pink-950 font-fun">Keseharian Saya 📅</h2>
+                <p class="text-pink-700 mt-2 text-base sm:text-lg">Rutinitas harian yang saya jalani dengan penuh rasa syukur, kehangatan, dan semangat!</p>
+            </div>
+
+            <!-- Timeline Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Activity 1 -->
+                <div class="barbie-card rounded-3xl p-6 sm:p-8 flex items-start space-x-5">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-barbie-hot to-pink-400 text-white flex-shrink-0 flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+                        📚
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-bold text-barbie-hot bg-pink-100 px-3 py-1 rounded-full border border-pink-300">Aktivitas Utama Kampus</span>
+                        <h3 class="text-xl font-bold text-pink-950 font-fun">Pergi ke Kampus & Belajar Giat</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Menuntut ilmu di kampus STIE Kasih Bangsa, mengikuti perkuliahan Prodi Akuntansi, berdiskusi dengan dosen dan teman-teman, serta belajar giat untuk meraih cita-cita!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="barbie-card rounded-3xl p-6 sm:p-8 flex items-start space-x-5">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-barbie-hot to-pink-400 text-white flex-shrink-0 flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+                        🍳
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-bold text-barbie-hot bg-pink-100 px-3 py-1 rounded-full border border-pink-300">Kuliner & Kreativitas</span>
+                        <h3 class="text-xl font-bold text-pink-950 font-fun">Memasak di Rumah</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Menyiapkan dan memasak hidangan favorit di rumah untuk keluarga, mengasah kemampuan memasak, dan mencoba resep baru yang bergizi dan lezat.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="barbie-card rounded-3xl p-6 sm:p-8 flex items-start space-x-5">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-barbie-hot to-pink-400 text-white flex-shrink-0 flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+                        🧹
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-bold text-barbie-hot bg-pink-100 px-3 py-1 rounded-full border border-pink-300">Kerapihan & Kenyamanan</span>
+                        <h3 class="text-xl font-bold text-pink-950 font-fun">Beberes Rumah</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Membersihkan rumah, merapikan kamar tidur dan ruang belajar agar selalu rapi, harum, bersih, dan estetik sehingga makin betah di rumah.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Activity 4 -->
+                <div class="barbie-card rounded-3xl p-6 sm:p-8 flex items-start space-x-5">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-barbie-hot to-pink-400 text-white flex-shrink-0 flex items-center justify-center text-2xl sm:text-3xl shadow-lg">
+                        💻
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs font-bold text-barbie-hot bg-pink-100 px-3 py-1 rounded-full border border-pink-300">Tugas & Akademik</span>
+                        <h3 class="text-xl font-bold text-pink-950 font-fun">Mengerjakan Tugas Kuliah</h3>
+                        <p class="text-pink-800 text-sm leading-relaxed">
+                            Menyelesaikan tugas-tugas akuntansi, analisis keuangan, jurnal, laporan, serta mempersiapkan materi untuk presentasi dan ujian.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Accounting Calculator Section (Bonus Mini-Tool for Accounting Major) -->
+        <section id="akuntansi" class="py-8">
+            <div class="barbie-glass rounded-3xl p-6 sm:p-10 border-2 border-pink-300 shadow-xl relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-200 text-barbie-hot text-xs font-bold">
+                            🧮 Barbie Accounting Tool
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-pink-950 font-fun">Kalkulator Akuntansi Pink 📊</h2>
+                        <p class="text-pink-800 text-sm sm:text-base leading-relaxed">
+                            Sebagai mahasiswa Prodi Akuntansi di STIE Kasih Bangsa, berhitung adalah keahlian harian Dina! Gunakan kalkulator pink imut ini untuk perhitungan cepat!
+                        </p>
+                        <div class="flex items-center gap-4 text-xs font-semibold text-pink-700">
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-check text-barbie-hot"></i> Hitung Debit/Kredit</span>
+                            <span class="flex items-center gap-1"><i class="fa-solid fa-check text-barbie-hot"></i> Cepat & Akurat</span>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Interface -->
+                    <div class="lg:col-span-6 flex justify-center">
+                        <div class="w-full max-w-xs bg-gradient-to-b from-pink-300 to-pink-400 p-5 rounded-3xl shadow-2xl border-4 border-white">
+                            <!-- Display -->
+                            <div class="bg-pink-950 text-pink-100 font-mono text-right text-2xl p-4 rounded-2xl mb-4 border-2 border-pink-200 shadow-inner overflow-x-auto" id="calcDisplay">
+                                0
+                            </div>
+                            <!-- Buttons Grid -->
+                            <div class="grid grid-cols-4 gap-2">
+                                <button onclick="calcClear()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-xl shadow transition text-sm">C</button>
+                                <button onclick="calcInput('(')" class="bg-pink-100 hover:bg-pink-200 text-barbie-deep font-bold py-3 rounded-xl shadow transition">(</button>
+                                <button onclick="calcInput(')')" class="bg-pink-100 hover:bg-pink-200 text-barbie-deep font-bold py-3 rounded-xl shadow transition">)</button>
+                                <button onclick="calcInput('/')" class="bg-barbie-hot hover:bg-pink-600 text-white font-bold py-3 rounded-xl shadow transition">÷</button>
+
+                                <button onclick="calcInput('7')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">7</button>
+                                <button onclick="calcInput('8')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">8</button>
+                                <button onclick="calcInput('9')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">9</button>
+                                <button onclick="calcInput('*')" class="bg-barbie-hot hover:bg-pink-600 text-white font-bold py-3 rounded-xl shadow transition">×</button>
+
+                                <button onclick="calcInput('4')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">4</button>
+                                <button onclick="calcInput('5')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">5</button>
+                                <button onclick="calcInput('6')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">6</button>
+                                <button onclick="calcInput('-')" class="bg-barbie-hot hover:bg-pink-600 text-white font-bold py-3 rounded-xl shadow transition">-</button>
+
+                                <button onclick="calcInput('1')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">1</button>
+                                <button onclick="calcInput('2')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">2</button>
+                                <button onclick="calcInput('3')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">3</button>
+                                <button onclick="calcInput('+')" class="bg-barbie-hot hover:bg-pink-600 text-white font-bold py-3 rounded-xl shadow transition">+</button>
+
+                                <button onclick="calcInput('0')" class="col-span-2 bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">0</button>
+                                <button onclick="calcInput('.')" class="bg-white hover:bg-pink-50 text-pink-900 font-bold py-3 rounded-xl shadow transition">.</button>
+                                <button onclick="calcCalculate()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-xl shadow transition">=</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Barbie Daily Quote Generator -->
+        <section class="py-4">
+            <div class="barbie-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden bg-gradient-to-r from-pink-100 via-rose-100 to-pink-200 border-2 border-pink-300">
+                <span class="text-4xl block mb-2">👑</span>
+                <h3 class="font-fun text-barbie-deep text-xl font-bold mb-2">Barbie Daily Motivation 💕</h3>
+                <p id="barbieQuoteText" class="font-barbie text-2xl sm:text-3xl text-barbie-hot my-3 transition duration-500">
+                    "You Can Be Anything - Tetap Semangat Belajar & Meraih Impian!"
+                </p>
+                <button onclick="generateNewQuote()" class="mt-2 bg-white hover:bg-pink-50 text-barbie-hot font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full border border-pink-300 shadow transition">
+                    ✨ Ambil Kata-Kata Semangat Baru ✨
+                </button>
+            </div>
+        </section>
+
+        <!-- Contact & Connect Section -->
+        <section id="contact" class="py-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-pink-200 text-barbie-hot font-bold text-xs uppercase tracking-widest mb-3">
+                    💌 Get In Touch With Me 💌
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-pink-950 font-fun">Hubungi Saya 📞</h2>
+                <p class="text-pink-700 mt-2 text-base sm:text-lg">Jangan ragu untuk menyapa atau berdiskusi dengan Dina melalui WhatsApp atau Email!</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Direct Contact Cards -->
+                <div class="space-y-6">
+                    <!-- WhatsApp Card -->
+                    <a href="https://wa.me/6285368543428" target="_blank" class="barbie-card p-6 rounded-3xl flex items-center justify-between block group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-14 h-14 rounded-2xl bg-green-500 text-white flex items-center justify-center text-3xl shadow-md group-hover:scale-110 transition">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-green-700 uppercase tracking-wider">WhatsApp Direct</p>
+                                <h4 class="text-xl font-bold text-pink-950 font-fun">085368543428</h4>
+                                <p class="text-xs text-pink-700">Klik untuk langsung membuka chat WA</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-chevron-right text-2xl text-barbie-hot group-hover:translate-x-2 transition"></i>
+                    </a>
+
+                    <!-- Email Card -->
+                    <a href="mailto:dinapujilestari16@gmail.com" class="barbie-card p-6 rounded-3xl flex items-center justify-between block group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-14 h-14 rounded-2xl bg-rose-500 text-white flex items-center justify-center text-3xl shadow-md group-hover:scale-110 transition">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-rose-700 uppercase tracking-wider">Email Direct</p>
+                                <h4 class="text-lg sm:text-xl font-bold text-pink-950 font-fun break-all">dinapujilestari16@gmail.com</h4>
+                                <p class="text-xs text-pink-700">Klik untuk mengirim pesan email</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-chevron-right text-2xl text-barbie-hot group-hover:translate-x-2 transition"></i>
+                    </a>
+
+                    <!-- Location / Campus Info -->
+                    <div class="barbie-glass p-6 rounded-3xl border border-pink-300 flex items-center space-x-4">
+                        <div class="w-14 h-14 rounded-2xl bg-barbie-hot text-white flex items-center justify-center text-3xl shadow-md">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-barbie-deep uppercase tracking-wider">Perguruan Tinggi</p>
+                            <h4 class="text-lg font-bold text-pink-950 font-fun">STIE Kasih Bangsa</h4>
+                            <p class="text-xs text-pink-700">Program Studi: Akuntansi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Message Form -->
+                <div class="barbie-glass p-8 rounded-3xl border-2 border-pink-300 shadow-lg">
+                    <h3 class="text-2xl font-bold text-pink-950 font-fun mb-4 flex items-center gap-2">
+                        <span>✉️</span> Kirim Pesan Cepat
+                    </h3>
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-pink-900 uppercase mb-1">Nama Lengkap</label>
+                            <input type="text" id="senderName" required placeholder="Masukkan nama Anda..." class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-pink-300 focus:outline-none focus:ring-2 focus:ring-barbie-hot text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-pink-900 uppercase mb-1">Email / Kontak</label>
+                            <input type="text" id="senderContact" required placeholder="Email atau No. WA Anda..." class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-pink-300 focus:outline-none focus:ring-2 focus:ring-barbie-hot text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-pink-900 uppercase mb-1">Pesan / Salam</label>
+                            <textarea id="senderMessage" rows="3" required placeholder="Tuliskan pesan manis Anda di sini..." class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-pink-300 focus:outline-none focus:ring-2 focus:ring-barbie-hot text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full barbie-btn text-white py-3.5 rounded-2xl font-bold text-base shadow-md">
+                            🚀 Kirim via WhatsApp Baru
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6285368543428" target="_blank" title="Chat WhatsApp Dina" class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-tr from-green-500 to-emerald-400 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-transform animate-pulse-glow">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="mt-16 barbie-glass border-t border-pink-300 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <div class="font-barbie text-3xl text-barbie-hot font-bold">Dina Pujilestari ✨</div>
+            <p class="text-xs sm:text-sm text-pink-800 font-medium">
+                STIE Kasih Bangsa • Prodi Akuntansi | Designed with 💕 Barbie Pink Theme
+            </p>
+            <div class="flex justify-center space-x-4 text-pink-600 text-sm">
+                <a href="https://wa.me/6285368543428" target="_blank" class="hover:text-barbie-hot"><i class="fa-brands fa-whatsapp"></i> 085368543428</a>
+                <span>•</span>
+                <a href="mailto:dinapujilestari16@gmail.com" class="hover:text-barbie-hot"><i class="fa-solid fa-envelope"></i> dinapujilestari16@gmail.com</a>
+            </div>
+            <p class="text-xs text-pink-500 pt-2">© 2026 Dina Pujilestari. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // 1. Sparkle Particle Animation Canvas Logic
+        let sparklesEnabled = true;
+        const canvas = document.getElementById('sparkleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Sparkle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.speedY = (Math.random() - 0.5) * 2 - 1;
+                this.color = ['#ff1493', '#ff69b4', '#ffd700', '#ffffff', '#ffb6c1'][Math.floor(Math.random() * 5)];
+                this.life = 1;
+                this.decay = Math.random() * 0.03 + 0.01;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            if (!sparklesEnabled) return;
+            if (Math.random() < 0.3) {
+                particles.push(new Sparkle(e.clientX, e.clientY));
+            }
+        });
+
+        function animateSparkles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animateSparkles);
+        }
+        animateSparkles();
+
+        function toggleSparkles() {
+            sparklesEnabled = !sparklesEnabled;
+            const btn = document.getElementById('sparkleToggleBtn');
+            if (sparklesEnabled) {
+                btn.classList.add('text-barbie-hot');
+                btn.classList.remove('text-gray-400');
+            } else {
+                btn.classList.remove('text-barbie-hot');
+                btn.classList.add('text-gray-400');
+            }
+        }
+
+        // 2. Profile Photo Upload Handler
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileImageDisplay').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 3. Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // 4. Accounting Pink Calculator Logic
+        let calcVal = "0";
+
+        function updateCalcDisplay() {
+            document.getElementById('calcDisplay').innerText = calcVal;
+        }
+
+        function calcInput(char) {
+            if (calcVal === "0" && char !== ".") {
+                calcVal = char;
+            } else {
+                calcVal += char;
+            }
+            updateCalcDisplay();
+        }
+
+        function calcClear() {
+            calcVal = "0";
+            updateCalcDisplay();
+        }
+
+        function calcCalculate() {
+            try {
+                // Safely evaluate math expression
+                const sanitized = calcVal.replace(/×/g, '*').replace(/÷/g, '/');
+                calcVal = String(eval(sanitized));
+            } catch (err) {
+                calcVal = "Error";
+            }
+            updateCalcDisplay();
+        }
+
+        // 5. Barbie Quote Generator
+        const barbieQuotes = [
+            '"You Can Be Anything - Tetap Semangat Belajar & Meraih Impian!" 🌸',
+            '"Belajar Akuntansi dengan Senyuman & Semangat Tinggi!" 📊',
+            '"Jadikan Setiap Hari Indah Seperti Barbie World!" ✨',
+            '"Traveling, Makan Enak, & Istirahat Cukup = Hidup Bahagia!" 💖',
+            '"Giat Belajar Hari Ini Untuk Masa Depan Yang Gemilang!" 🌟'
+        ];
+
+        function generateNewQuote() {
+            const textElem = document.getElementById('barbieQuoteText');
+            const randomIndex = Math.floor(Math.random() * barbieQuotes.length);
+            textElem.style.opacity = '0';
+            setTimeout(() => {
+                textElem.innerText = barbieQuotes[randomIndex];
+                textElem.style.opacity = '1';
+            }, 250);
+        }
+
+        // 6. Form Submission Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value;
+            const contact = document.getElementById('senderContact').value;
+            const message = document.getElementById('senderMessage').value;
+
+            const waText = encodeURIComponent(`Halo Dina! Nama saya ${name} (${contact}).\n\nPesan: ${message}`);
+            window.open(`https://wa.me/6285368543428?text=${waText}`, '_blank');
+        }
+    </script>
+</body>
+</html>
